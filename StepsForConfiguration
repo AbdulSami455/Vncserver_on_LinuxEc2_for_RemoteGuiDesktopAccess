@@ -28,4 +28,9 @@ RestartSec=3
 [Install]
 WantedBy=default.target" | sudo tee /etc/systemd/system/vncserver@:1.service
 
-7. 
+7. Start the VNC service
+  sudo systemctl start vncserver@:1
+
+8. Enable the VNC service to start on boot
+sudo systemctl enable vncserver@:1
+
