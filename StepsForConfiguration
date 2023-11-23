@@ -1,0 +1,31 @@
+1. Connect to your EC2 instance
+    ssh -i "your-key.pem" ec2-user@your-ec2-ip
+
+2.Update the package repository
+   sudo yum update -y
+
+3.Install a desktop environment
+   sudo yum groupinstall "X Window System" "XFCE" -y
+
+4. Install TigerVNC server
+   sudo yum install tigervnc-server -y
+
+5. Set VNC password
+   vncpasswd
+
+6. Create a VNC service file
+  echo "[Unit]
+Description=Remote desktop service (VNC)
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/vncserver :1 -geometry 1280x800 -depth 16 -localhost
+ExecStop=/usr/bin/vncserver -kill :1
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target" | sudo tee /etc/systemd/system/vncserver@:1.service
+
+7. 
